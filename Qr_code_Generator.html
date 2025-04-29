@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR Code Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input {
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+    }
+
+    #qrCode img {
+      margin-top: 20px;
+      width: 200px;
+      height: 200px;
+    }
+
+    #qrCode button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      font-size: 14px;
+      background-color: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>QR Code Generator</h1>
+    <input type="text" id="qrInput" placeholder="Enter text or URL" />
+    <br />
+    <button onclick="generateQRCode()">Generate QR Code</button>
+    <div id="qrCode"></div>
+  </div>
+
+  <script>
+    function generateQRCode() {
+      const input = document.getElementById("qrInput").value;
+      const qrCodeDiv = document.getElementById("qrCode");
+
+      if (!input) {
+        alert("Please enter some text or URL");
+        return;
+      }
+
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(input)}&size=200x200`;
+
+      qrCodeDiv.innerHTML = `
+        <img id="qrImage" src="${qrUrl}" alt="QR Code" />
+        <br/>
+        <a id="downloadLink" href="${qrUrl}" download="qrcode.png">
+          <button>Download QR Code</button>
+        </a>
+      `;
+    }
+  </script>
+</body>
+</html>
